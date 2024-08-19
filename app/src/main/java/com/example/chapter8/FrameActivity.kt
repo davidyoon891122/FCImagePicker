@@ -2,6 +2,7 @@ package com.example.chapter8
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,6 +24,14 @@ class FrameActivity : AppCompatActivity() {
 
         val frameAdapter = FrameAdapter(images)
 
+        binding.toolBar.apply {
+            title = "나만의 앨범"
+            setSupportActionBar(this)
+
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.viewPager.adapter = frameAdapter
 
         TabLayoutMediator(
@@ -32,5 +41,18 @@ class FrameActivity : AppCompatActivity() {
             binding.viewPager.currentItem = tab.position
 
         }.attach()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
